@@ -35,3 +35,15 @@ fun HalamanEdit(
     modifier: Modifier = Modifier,
     viewModel: EditViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val uiState = viewModel.uiStateSiswa
+
+    Scaffold(
+        topBar = {
+            SiswaTopAppBar(
+                title = stringResource(DestinasiEditSiswa.titleRes),
+                canNavigateBack = true,
+                navigateUp = onNavigateUp
+            )
+        },
+        modifier = modifier
