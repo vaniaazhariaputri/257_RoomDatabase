@@ -27,3 +27,11 @@ object DestinasiEditSiswa : DestinasiNavigasi {
     val routeWithArgs = "$route/{$ITEM_ID_ARG}"
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HalamanEdit(
+    navigateBack: () -> Unit,
+    onNavigateUp: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: EditViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
