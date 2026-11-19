@@ -41,3 +41,10 @@ import com.example.praktikum10.viewmodel.PenyediaViewModel
 import com.example.praktikum10.viewmodel.toSiswa
 import kotlinx.coroutines.launch
 
+object DestinasiDetailSiswa : DestinasiNavigasi {
+    override val route = "detail_siswa"
+    override val titleRes = R.string.detail_siswa
+    const val itemIdArg = "idSiswa"
+    val routeWithArgs = "$route/{$itemIdArg}"
+}
+
