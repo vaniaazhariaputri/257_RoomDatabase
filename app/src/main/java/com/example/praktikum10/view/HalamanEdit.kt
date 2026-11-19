@@ -47,3 +47,24 @@ fun HalamanEdit(
             )
         },
         modifier = modifier
+    ) { innerPadding ->
+        EntrySiswaBody(
+            uiStateSiswa = uiState,
+            onSiswaValueChange = viewModel::updateUiState,
+            onSaveClick = {
+                coroutineScope.launch {
+                    viewModel.updateSiswa()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(
+                    start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
+                    end = innerPadding.calculateEndPadding(LocalLayoutDirection.current),
+                    top = innerPadding.calculateTopPadding()
+                )
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+        )
+    }
+}
