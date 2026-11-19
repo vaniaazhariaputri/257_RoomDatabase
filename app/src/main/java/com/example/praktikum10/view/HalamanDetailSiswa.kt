@@ -169,3 +169,16 @@ fun ItemDetailSiswa(
     }
 }
 
+@Composable
+private fun ItemDetailRow(
+    labelResID: Int,
+    itemDetail: String,
+    modifier: Modifier = Modifier
+) {
+    Row(modifier = modifier) {
+        Text(text = stringResource(labelResID))
+        Spacer(modifier = Modifier.weight(1f))
+        Text(text = itemDetail, style = MaterialTheme.typography.titleMedium)
+    }
+}
+
