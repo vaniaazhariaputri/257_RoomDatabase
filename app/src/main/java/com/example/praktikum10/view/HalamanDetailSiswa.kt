@@ -48,3 +48,51 @@ object DestinasiDetailSiswa : DestinasiNavigasi {
     val routeWithArgs = "$route/{$itemIdArg}"
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DetailSiswaScreen(
+    navigateToEditItem: (Int) -> Unit,
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: DetailViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val uiState by viewModel.uiDetailState.collectAsState()
+
+    Scaffold(
+        topBar = {
+            SiswaTopAppBar(
+                title = stringResource(DestinasiDetailSiswa.titleRes),
+                canNavigateBack = true,
+                navigateUp = navigateBack
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { navigateToEditItem(uiState.detailSiswa.id) },
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = stringResource(R.string.edit_siswa)
+                )
+            }
+        },
+        modifier = modifier
+    ) { innerPadding ->
+        BodyDetailDataSiswa(
+            detailSiswaUiState = uiState,
+            onDelete = {
+                coroutineScope.launch {
+                    viewModel.deleteSiswa()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+        )
+    }
+}
+
